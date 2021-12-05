@@ -8,21 +8,31 @@ const WORKING_DAYS = 20;
 const MAX_HRS_IN_MONTH = 160;
 let empDailyWageArray = new Array();
 let empDailyWageMap = new Map();
+let empHrsAndWageArrayObject = new Array();
 
 function calcWagesForAMonth() {
   let totalEmpHrs = 0;
-  let days=0;
+  let days=1;
 
-  while(days<WORKING_DAYS && totalEmpHrs<=MAX_HRS_IN_MONTH){
+  while(days<=WORKING_DAYS && totalEmpHrs<=MAX_HRS_IN_MONTH){
     let empType = Math.floor(Math.random() * 3);
     totalEmpHrs+=getWorkingHrs(empType)
     empDailyWageArray.push(calculateWage(getWorkingHrs(empType)));
-    empDailyWageMap.set(days+1,calculateWage(getWorkingHrs(empType)));
+    empDailyWageMap.set(days,calculateWage(getWorkingHrs(empType)));
+    empHrsAndWageArrayObject.push(
+      {
+          day : days,
+          dailyHrs : getWorkingHrs(empType),
+          dailyWage : calculateWage(getWorkingHrs(empType)),
+          toString(){
+              return "\nDay "+this.day+" Working Hours "+this.dailyHrs+" Wage Earned : "+this.dailyWage
+          } 
+      });
     days++;
   }
 
   let empWageForMonth = totalEmpHrs * WAGE_PER_HR;
-  console.log(`    Total working days = ${days} 
+  console.log(`    Total working days = ${days-1} 
     Total Hrs = ${totalEmpHrs}
     Total Wage for Month = ${empDailyWageArray.reduce((totalWage, dailyWage) => totalWage + dailyWage)}`)   //UC-7a Calc total Wage using reduce mehod
 
@@ -76,3 +86,5 @@ console.log('Full working days = ' + (Array.from(empDailyWageMap.values()).filte
 console.log('Part working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==80)).length);
 console.log('Non working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==0)).length);
 
+//UC-10 
+console.log("Daily Hours Worked and Wage Earned : "+empHrsAndWageArrayObject);
