@@ -7,7 +7,6 @@ const WAGE_PER_HR = 20;
 const WORKING_DAYS = 20;
 const MAX_HRS_IN_MONTH = 160;
 let empDailyWageArray = new Array();
-let totalWage = 0;
 
 function calcWagesForAMonth() {
   let totalEmpHrs = 0;
