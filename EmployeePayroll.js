@@ -74,5 +74,5 @@ console.log("Total Wage for a month = "+ Array.from(empDailyWageMap.values()).re
 //UC9 Working hours on a particular day
 console.log('Full working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==160)).length);
 console.log('Part working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==80)).length);
-console.log('No working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==0)).length);
+console.log('Non working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==0)).length);
 
