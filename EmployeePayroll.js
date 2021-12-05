@@ -141,8 +141,8 @@ class EmployeePayRollData {
   }
 
   //getter and setter method
-  getname() { return this.name }
-  setname(Name) { this.name = Name }
+  get name() { return this.name }
+  set name(Name) { this.name = Name }
 
   //to string method
   toString() {
@@ -156,7 +156,6 @@ class EmployeePayRollData {
 
 let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000, 'F', new Date());
 console.log(employeePayRollData);
-employeePayRollData.name = 'John'
+employeePayRollData.name = 'John';
 console.log(employeePayRollData);
-employeePayRollData.setname('Wick');
 console.log(employeePayRollData.toString());
