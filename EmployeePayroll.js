@@ -12,34 +12,34 @@ let empHrsAndWageArrayObject = new Array();
 
 function calcWagesForAMonth() {
   let totalEmpHrs = 0;
-  let days=1;
+  let days = 1;
 
-  while(days<=WORKING_DAYS && totalEmpHrs<=MAX_HRS_IN_MONTH){
+  while (days <= WORKING_DAYS && totalEmpHrs <= MAX_HRS_IN_MONTH) {
     let empType = Math.floor(Math.random() * 3);
-    totalEmpHrs+=getWorkingHrs(empType)
+    totalEmpHrs += getWorkingHrs(empType)
     empDailyWageArray.push(calculateWage(getWorkingHrs(empType)));
-    empDailyWageMap.set(days,calculateWage(getWorkingHrs(empType)));
+    empDailyWageMap.set(days, calculateWage(getWorkingHrs(empType)));
     empHrsAndWageArrayObject.push(
       {
-          day : days,
-          dailyHrs : getWorkingHrs(empType),
-          dailyWage : calculateWage(getWorkingHrs(empType)),
-          toString(){
-              return "Day "+this.day+" Working Hours "+this.dailyHrs+" Wage Earned : "+this.dailyWage
-          } 
+        day: days,
+        dailyHrs: getWorkingHrs(empType),
+        dailyWage: calculateWage(getWorkingHrs(empType)),
+        toString() {
+          return "Day " + this.day + " Working Hours " + this.dailyHrs + " Wage Earned : " + this.dailyWage
+        }
       });
     days++;
   }
 
   let empWageForMonth = totalEmpHrs * WAGE_PER_HR;
-  console.log(`    Total working days = ${days-1} 
+  console.log(`    Total working days = ${days - 1} 
     Total Hrs = ${totalEmpHrs}
     Total Wage for Month = ${empDailyWageArray.reduce((totalWage, dailyWage) => totalWage + dailyWage)}`)   //UC-7a Calc total Wage using reduce mehod
 
   return empWageForMonth;
 }
 
-function calculateWage(empHrs){
+function calculateWage(empHrs) {
   return WAGE_PER_HR * empHrs
 }
 
@@ -65,7 +65,7 @@ console.log('Days with full time wage: ')
 console.log(fullTimeWageArray);
 
 //UC-7d Find the first occurrence when Full Time Wage was earned using find function
-console.log('First occurance of full time wage is Day: ' + (empDailyWageArray.findIndex(d => d==160) + 1));
+console.log('First occurance of full time wage is Day: ' + (empDailyWageArray.findIndex(d => d == 160) + 1));
 
 //UC-7e Check if Every Element of Full Time Wage is truly holding Full time wage
 console.log(fullTimeWageArray.every(dw => dw.includes(160)));
@@ -74,17 +74,17 @@ console.log(fullTimeWageArray.every(dw => dw.includes(160)));
 console.log('Check is there any part time wage: ' + arrMap.some(dw => dw.includes(80)));
 
 //UC-7g Find number of days employee worked
-let workingDays = empDailyWageArray.filter(dw => dw>0);
-console.log("Number of days Employee worked = "+workingDays.length);
+let workingDays = empDailyWageArray.filter(dw => dw > 0);
+console.log("Number of days Employee worked = " + workingDays.length);
 
 //UC-8 Map Functions
 console.log(empDailyWageMap);
-console.log("\nUC-8: Total Wage for a month = "+ Array.from(empDailyWageMap.values()).reduce((totalWage,dailyWage) => totalWage+dailyWage));
+console.log("\nUC-8: Total Wage for a month = " + Array.from(empDailyWageMap.values()).reduce((totalWage, dailyWage) => totalWage + dailyWage));
 
 //UC9 Working hours on a particular day
-console.log('\nUC-9: Full working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==160)).length);
-console.log('Part working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==80)).length);
-console.log('Non working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==0)).length);
+console.log('\nUC-9: Full working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value == 160)).length);
+console.log('Part working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value == 80)).length);
+console.log('Non working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value == 0)).length);
 
 //UC-10 Ability to store day, hrs and wage in a single object
 console.log("\nUC10: Daily Hours Worked and Wage Earned : ")
@@ -92,32 +92,32 @@ console.log(empHrsAndWageArrayObject);
 
 //UC-11a Calc total Wage and total hours worked
 let totalWages = empHrsAndWageArrayObject
-                  .filter(hrsAndWageObj => hrsAndWageObj.dailyWage>0 )
-                  .reduce((totalWage, hrsAndWageObj) => totalWage+= hrsAndWageObj.dailyWage, 0 );
+  .filter(hrsAndWageObj => hrsAndWageObj.dailyWage > 0)
+  .reduce((totalWage, hrsAndWageObj) => totalWage += hrsAndWageObj.dailyWage, 0);
 
 let totalHrs = empHrsAndWageArrayObject
-                  .filter(hrsAndWageObj => hrsAndWageObj.dailyWage>0 )
-                  .reduce((totalHrs, hrsAndWageObj) => totalHrs+= hrsAndWageObj.dailyHrs, 0 );
+  .filter(hrsAndWageObj => hrsAndWageObj.dailyWage > 0)
+  .reduce((totalHrs, hrsAndWageObj) => totalHrs += hrsAndWageObj.dailyHrs, 0);
 
 console.log('\nUC-11a Total hrs = ' + totalHrs + ' Total wages = ' + totalWages);
 
 //UC-11b show the full workings days using foreach
 console.log('\nUC-11b Show full working days: ')
-empHrsAndWageArrayObject.filter(hrsAndWageObj => hrsAndWageObj.dailyHrs==8)
-                        .forEach(hrsAndWageObj => console.log(hrsAndWageObj.toString()));
+empHrsAndWageArrayObject.filter(hrsAndWageObj => hrsAndWageObj.dailyHrs == 8)
+  .forEach(hrsAndWageObj => console.log(hrsAndWageObj.toString()));
 
 //UC-11c Show Part working days using Map by reducing to String Array
 console.log('\nUC-11c Show part working days: ')
 let partWorkingDaysStrArr = empHrsAndWageArrayObject
-                              .filter(hrsAndWageObj => hrsAndWageObj.dailyHrs==4)
-                              .map(hrsAndWageObj => hrsAndWageObj.toString());
+  .filter(hrsAndWageObj => hrsAndWageObj.dailyHrs == 4)
+  .map(hrsAndWageObj => hrsAndWageObj.toString());
 
 console.log(partWorkingDaysStrArr);
 
 //UC-11d No working days only using Map function
 let nonWorkingDaysStrArr = empHrsAndWageArrayObject
-                              .filter(hrsAndWageObj => hrsAndWageObj.dailyHrs==0)
-                              .map(hrsAndWageObj => hrsAndWageObj.toString());
+  .filter(hrsAndWageObj => hrsAndWageObj.dailyHrs == 0)
+  .map(hrsAndWageObj => hrsAndWageObj.toString());
 
 console.log(nonWorkingDaysStrArr);
 
@@ -128,28 +128,35 @@ class EmployeePayRollData {
   id;
   name;
   salary;
+  gender;
+  startDate;
 
   //constructor
-  constructor(id, name, salary) {
+  constructor(id, name, salary, gender, startDate) {
     this.id = id;
     this.name = name;
     this.salary = salary;
+    this.gender = gender;
+    this.startDate = startDate;
   }
 
   //getter and setter method
-  getname() { return this.name}
-  setname(Name) { this.name = Name}
+  getname() { return this.name }
+  setname(Name) { this.name = Name }
 
   //to string method
   toString() {
-    return 'id=' + this.id + ', name=' + this.name + ', salary=' + this.salary;
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const empDate = this.startDate == undefined ? 'undefined' : 
+                    this.startDate.toLocaleDateString('en-US', options);
+    return 'id=' + this.id + ', name=' + this.name + ', salary=' + this.salary +
+                  ', gender=' + this.gender + ', startDate= ' + empDate ;
   }
 }
 
-let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000);
+let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000, 'F', new Date());
 console.log(employeePayRollData);
 employeePayRollData.name = 'John'
 console.log(employeePayRollData);
 employeePayRollData.setname('Wick');
-console.log(employeePayRollData);
-
+console.log(employeePayRollData.toString());
