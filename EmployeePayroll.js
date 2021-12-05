@@ -120,3 +120,36 @@ let nonWorkingDaysStrArr = empHrsAndWageArrayObject
                               .map(hrsAndWageObj => hrsAndWageObj.toString());
 
 console.log(nonWorkingDaysStrArr);
+
+
+//UC-11 Employee Payroll Data Class
+class EmployeePayRollData {
+  //Property
+  id;
+  name;
+  salary;
+
+  //constructor
+  constructor(id, name, salary) {
+    this.id = id;
+    this.name = name;
+    this.salary = salary;
+  }
+
+  //getter and setter method
+  getname() { return this.name}
+  setname(Name) { this.name = Name}
+
+  //to string method
+  toString() {
+    return 'id=' + this.id + ', name=' + this.name + ', salary=' + this.salary;
+  }
+}
+
+let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000);
+console.log(employeePayRollData);
+employeePayRollData.name = 'John'
+console.log(employeePayRollData);
+employeePayRollData.setname('Wick');
+console.log(employeePayRollData);
+
