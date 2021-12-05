@@ -25,7 +25,7 @@ function calcWagesForAMonth() {
           dailyHrs : getWorkingHrs(empType),
           dailyWage : calculateWage(getWorkingHrs(empType)),
           toString(){
-              return "\nDay "+this.day+" Working Hours "+this.dailyHrs+" Wage Earned : "+this.dailyWage
+              return "Day "+this.day+" Working Hours "+this.dailyHrs+" Wage Earned : "+this.dailyWage
           } 
       });
     days++;
@@ -79,12 +79,44 @@ console.log("Number of days Employee worked = "+workingDays.length);
 
 //UC-8 Map Functions
 console.log(empDailyWageMap);
-console.log("Total Wage for a month = "+ Array.from(empDailyWageMap.values()).reduce((totalWage,dailyWage) => totalWage+dailyWage));
+console.log("\nUC-8: Total Wage for a month = "+ Array.from(empDailyWageMap.values()).reduce((totalWage,dailyWage) => totalWage+dailyWage));
 
 //UC9 Working hours on a particular day
-console.log('Full working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==160)).length);
+console.log('\nUC-9: Full working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==160)).length);
 console.log('Part working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==80)).length);
 console.log('Non working days = ' + (Array.from(empDailyWageMap.values()).filter(value => value==0)).length);
 
-//UC-10 
-console.log("Daily Hours Worked and Wage Earned : "+empHrsAndWageArrayObject);
+//UC-10 Ability to store day, hrs and wage in a single object
+console.log("\nUC10: Daily Hours Worked and Wage Earned : ")
+console.log(empHrsAndWageArrayObject);
+
+//UC-11a Calc total Wage and total hours worked
+let totalWages = empHrsAndWageArrayObject
+                  .filter(hrsAndWageObj => hrsAndWageObj.dailyWage>0 )
+                  .reduce((totalWage, hrsAndWageObj) => totalWage+= hrsAndWageObj.dailyWage, 0 );
+
+let totalHrs = empHrsAndWageArrayObject
+                  .filter(hrsAndWageObj => hrsAndWageObj.dailyWage>0 )
+                  .reduce((totalHrs, hrsAndWageObj) => totalHrs+= hrsAndWageObj.dailyHrs, 0 );
+
+console.log('\nUC-11a Total hrs = ' + totalHrs + ' Total wages = ' + totalWages);
+
+//UC-11b show the full workings days using foreach
+console.log('\nUC-11b Show full working days: ')
+empHrsAndWageArrayObject.filter(hrsAndWageObj => hrsAndWageObj.dailyHrs==8)
+                        .forEach(hrsAndWageObj => console.log(hrsAndWageObj.toString()));
+
+//UC-11c Show Part working days using Map by reducing to String Array
+console.log('\nUC-11c Show part working days: ')
+let partWorkingDaysStrArr = empHrsAndWageArrayObject
+                              .filter(hrsAndWageObj => hrsAndWageObj.dailyHrs==4)
+                              .map(hrsAndWageObj => hrsAndWageObj.toString());
+
+console.log(partWorkingDaysStrArr);
+
+//UC-11d No working days only using Map function
+let nonWorkingDaysStrArr = empHrsAndWageArrayObject
+                              .filter(hrsAndWageObj => hrsAndWageObj.dailyHrs==0)
+                              .map(hrsAndWageObj => hrsAndWageObj.toString());
+
+console.log(nonWorkingDaysStrArr);
