@@ -64,4 +64,3 @@ console.log('Check is there any part time wage: ' + arrMap.some(dw => dw.include
 //UC-7g Find number of days employee worked
 let workingDays = empDailyWageArray.filter(dw => dw>0);
 console.log("Number of days Employee worked = "+workingDays.length);
-
