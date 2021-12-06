@@ -133,39 +133,69 @@ class EmployeePayRollData {
 
   //constructor
   constructor(id, name, salary, gender, startDate) {
-    this.id = id;
+    this.setid(id);
     this.setName(name);
-    this.salary = salary;
-    this.gender = gender;
-    this.startDate = startDate;
+    this.setSalary(salary);
+    this.setGender(gender);
+    this.setStartDate(startDate);
   }
 
   //getter and setter method
   getName() { return this.name }
   setName(name) {
     let nameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
-    if(nameRegex.test(name))
+    if (nameRegex.test(name))
       this.name = name;
     else throw '\nName is incorrect\n';
   }
+  setid(id) {
+    if (id > 0)
+      this.id = id;
+    else throw '\nID is incorrect\n';
+  }
+  setSalary(salary) {
+    if (salary > 0)
+      this.salary = salary;
+    else throw '\nSalary is not valid\n';
+  }
+  setGender(gender) {
+    let genderRegex = RegExp('^[MF]{1}$');
+    if (genderRegex.test(gender))
+      this.gender = gender;
+    else throw '\nGender is not valid\n';
+  }
+setStartDate(startDate) {
+  let d = new Date();
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const empDate = d == undefined ? 'undefined' :
+    d.toLocaleDateString('en-US', options);
+  let dateCurrent = new Date(empDate);
+  let dateJoin = startDate;
+
+  if(dateJoin<dateCurrent)
+    this.startDate = startDate;
+  else throw '\nDate cant be a future date\n'
+}
+
+
 
   //to string method
   toString() {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const empDate = this.startDate == undefined ? 'undefined' : 
-                    this.startDate.toLocaleDateString('en-US', options);
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const empDate = this.startDate == undefined ? 'undefined' :
+      this.startDate.toLocaleDateString('en-US', options);
     return 'id=' + this.id + ', name=' + this.name + ', salary=' + this.salary +
-                  ', gender=' + this.gender + ', startDate= ' + empDate ;
+      ', gender=' + this.gender + ', startDate= ' + empDate;
   }
 }
 
-let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000, 'F', new Date());
+let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000, 'M', new Date('12/6/2020'));
 console.log(employeePayRollData);
-try{employeePayRollData.setName('john');
+try {
+  employeePayRollData.setStartDate('12/6/2025');
   console.log(employeePayRollData);
 }
 catch (e) {
   console.error(e);
 }
-console.log(employeePayRollData);
 console.log(employeePayRollData.toString());
