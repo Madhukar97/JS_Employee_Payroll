@@ -164,20 +164,17 @@ class EmployeePayRollData {
       this.gender = gender;
     else throw '\nGender is not valid\n';
   }
-setStartDate(startDate) {
-  let d = new Date();
-  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-  const empDate = d == undefined ? 'undefined' :
-    d.toLocaleDateString('en-US', options);
-  let dateCurrent = new Date(empDate);
-  let dateJoin = startDate;
-
-  if(dateJoin<dateCurrent)
-    this.startDate = startDate;
-  else throw '\nDate cant be a future date\n'
-}
-
-
+  setStartDate(startDate) {
+    let d = new Date();
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const empDate = d == undefined ? 'undefined' :
+      d.toLocaleDateString('en-US', options);
+    let dateCurrent = new Date(empDate);
+    let dateJoin = startDate;
+    if (dateJoin <= dateCurrent)
+      this.startDate = startDate;
+    else throw '\nDate cant be a future date\n'
+  }
 
   //to string method
   toString() {
