@@ -134,15 +134,20 @@ class EmployeePayRollData {
   //constructor
   constructor(id, name, salary, gender, startDate) {
     this.id = id;
-    this.name = name;
+    this.setName(name);
     this.salary = salary;
     this.gender = gender;
     this.startDate = startDate;
   }
 
   //getter and setter method
-  get name() { return this.name }
-  set name(Name) { this.name = Name }
+  getName() { return this.name }
+  setName(name) {
+    let nameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
+    if(nameRegex.test(name))
+      this.name = name;
+    else throw '\nName is incorrect\n';
+  }
 
   //to string method
   toString() {
@@ -156,6 +161,11 @@ class EmployeePayRollData {
 
 let employeePayRollData = new EmployeePayRollData(1, 'Mark', 30000, 'F', new Date());
 console.log(employeePayRollData);
-employeePayRollData.name = 'John';
+try{employeePayRollData.setName('john');
+  console.log(employeePayRollData);
+}
+catch (e) {
+  console.error(e);
+}
 console.log(employeePayRollData);
 console.log(employeePayRollData.toString());
